@@ -4,14 +4,12 @@
   <title>Basemap</title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="" />
 
-  <!-- calls for the arcgis api's CSS file and JS library.-->
+  <!-- ArcGIS API CSS and JavaScript -->
   <link rel="stylesheet" href="https://js.arcgis.com/4.25/esri/themes/light/main.css">
   <script src="https://js.arcgis.com/4.25/"></script>
 
-  <!-- Adding the modules needed for a full screen map app-->
-  <script>  
+  <script>
     require([
       "esri/config", 
       "esri/Map", 
@@ -19,50 +17,59 @@
       "esri/widgets/BasemapGallery",
       "esri/widgets/Locate",
       "esri/widgets/Search"
-    ], function(esriConfig, Map, MapView,BasemapGallery, Locate, Search) {
+    ], function(esriConfig, Map, MapView, BasemapGallery, Locate, Search) {
+
+      // Set API key for Esri services
       esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurJZtzqH91EhYiqCQ_qj-RWtTWZu_K1_XG7Y-z2TWFIIqfC-lnUGvfIuMK-EzXwoeDmCZx6OvBaLbbtps64Z77bsoEaREvnjYfCe5XxCz9LPbg8APtBj1QPBuhvSlxMpWtTWvDod7pCrtHjtjXtKEYF4OfCT8hDnWrzJuC4eiO7DLxxTh4gCjCrbjOIdy-b7VrUId5jzykLlFvhrDw0SW68Vxkh9Y3ZlVaA9VOiUUSRi8AT1_FTQ2F8LN"; 
-      const map = new Map({ 
-        basemap: "arcgis-imagery" // Basemap layer service 
-      }); 
       
+      // Create a new map with a specific basemap
+      const map = new Map({
+        basemap: "arcgis-imagery" // Basemap layer service
+      });
+
+      // Set up the MapView
       const view = new MapView({
         map: map,
         center: [-112, 38], // Longitude, latitude
         zoom: 10, // Zoom level
-        container: "viewDiv" // Div element
+        container: "viewDiv" // Div element to hold the map
       });
 
-      let basemapGallery = new BasemapGallery({
+      // BasemapGallery Widget setup
+      const basemapGallery = new BasemapGallery({
         view: view
       });
-      //Add widge to the top right corner of the view
+
+      // Add the BasemapGallery widget to the UI
       view.ui.add(basemapGallery, {
         position: "top-right"
       });
 
+      // Locate Button Widget setup
       const locateBtn = new Locate({
         view: view
       });
 
-      // Add the Locate Button to the top left corner of the view
+      // Add the Locate widget to the UI (top-left corner)
       view.ui.add(locateBtn, {
         position: "top-left"
       });
 
-      //Search Widget setup
+      // Search Widget setup
       const searchWidget = new Search({
         view: view
       });
-      //Add the Search Widget to the UI (below Locate widget)
+
+      // Add the Search widget to the UI (below Locate widget)
       view.ui.add(searchWidget, {
         position: "top-left",
         index: 2
       });
 
-    });  
-   </script>
+    });
+  </script>
 
-  <!-- css to make a full screen map -->
+  <!-- CSS for full-screen map -->
   <style>  
     html,  
     body,  
@@ -72,11 +79,11 @@
       height: 100%;  
       width: 100%;  
     }  
-  </style> 
+  </style>
 
 </head>
 <body>
-  <!-- the div to displays the map -->
+  <!-- Div to hold the map -->
   <div id="viewDiv"></div>
 </body>
 </html>
