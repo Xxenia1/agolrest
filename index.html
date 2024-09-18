@@ -80,8 +80,21 @@
         attributes: attributes,
         popupTemplate: popupTemplate
       });
-
       graphicsLayer.add(pointGraphic);
+
+      //Add Polyline
+      const polyline = {
+        type: "polyline",
+        hasZ: false,
+        hasM: true,
+        paths: [-97.750689, 30.263098],
+        spatialReference: {wkid: 4326}
+      }
+      const polylineSymbol = {
+        type: "simple-line",
+        width: 2,
+        color: "black"
+      };
 
       // BasemapGallery Widget setup
       const basemapGallery = new BasemapGallery({
