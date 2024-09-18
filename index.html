@@ -51,17 +51,34 @@
       };
 
       const simpleMarkerSymbol = {  
-        type: "simple-marker",  
-        color: [0, 0, 139],  // Color of blues rock
+        type: "simple-marker", 
+        style: "square", 
+        color: [0, 0, 250],  // Color of blues rock
+        size: "26px",
         outline: {  
-          color: [255, 255, 255], // White  
+          color: [0, 0, 0], // Black 
           width: 1
         }  
       };
 
+      //Define popup propoerties
+      const popupTemplate = {
+        title: "{Name}",
+        content: "{Description}"
+      }
+      const attributes = {
+        Name: "Stevie Ray Vaughan Statue",
+        Description: "A bronze sculpture of Stevie Ray Vaughan by Ralph Helmick"
+      };
+
+      //Create point
       const pointGraphic = new Graphic({  
         geometry: point,  
-        symbol: simpleMarkerSymbol  
+        symbol: simpleMarkerSymbol,
+        
+        //Add popup properties
+        attributes: attributes,
+        popupTemplate: popupTemplate
       });
 
       graphicsLayer.add(pointGraphic);
