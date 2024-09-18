@@ -17,8 +17,12 @@
       "esri/widgets/BasemapGallery",
       "esri/widgets/Locate",
       "esri/widgets/Search",
-      "esri/Basemap"
-    ], function(esriConfig, Map, MapView, BasemapGallery, Locate, Search, Basemap) {
+      "esri/Basemap",
+
+      //adding in the modules for the graphic and graphic layer
+      "esri/Graphic",  
+      "esri/layers/GraphicsLayer" 
+    ], function(esriConfig, Map, MapView, BasemapGallery, Locate, Search, Basemap, Graphic, GraphicsLayer) {
 
       // Set API key for Esri services
       esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurJZtzqH91EhYiqCQ_qj-RWtTWZu_K1_XG7Y-z2TWFIIqQ7hATq0JWYits_VzY8nXIdJLoKE89CjTXvkfPxofSyJuXDkO5XFzFIt0uFScR38F4dypMSvsBHStj7fzAZXlXe4aAY1ia8YQK1xSIHCL47T_HPOGdXhaSJxUKgc7nMfPPGpWOIhrcOo0ZRLV9Q72jhPu_TS_ZVHW9J0TAwQGB6K4IRq-TLYckdnFzWW954RkAT1_FTQ2F8LN"; 
@@ -32,9 +36,35 @@
       const view = new MapView({
         container:"viewDiv", // Div element to hold the map
         map: map,
-        center: [-112, 38], // Longitude, latitude
+        center: [-97.750689, 30.263098], // Longitude, latitude
         zoom: 10, // Zoom level
       });
+
+      //Add the constructor for the graphicslayer
+      const graphicsLayer = new GraphicsLayer();
+      map.add(graphicsLayer);
+
+      const point = { //Create a point  
+        type: "point",  
+        longitude: -97.750689,    //long lat of Stevie Ray Vaughan Statue
+        latitude: 30.263098
+      };
+
+      const simpleMarkerSymbol = {  
+        type: "simple-marker",  
+        color: [0, 0, 139],  // Color of blues rock
+        outline: {  
+          color: [255, 255, 255], // White  
+          width: 1
+        }  
+      };
+
+      const pointGraphic = new Graphic({  
+        geometry: point,  
+        symbol: simpleMarkerSymbol  
+      });
+
+      graphicsLayer.add(pointGraphic);
 
       // BasemapGallery Widget setup
       const basemapGallery = new BasemapGallery({
