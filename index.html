@@ -16,34 +16,45 @@
       "esri/views/MapView",
       "esri/widgets/BasemapGallery",
       "esri/widgets/Locate",
-      "esri/widgets/Search"
-    ], function(esriConfig, Map, MapView, BasemapGallery, Locate, Search) {
+      "esri/widgets/Search",
+      "esri/Basemap"
+    ], function(esriConfig, Map, MapView, BasemapGallery, Locate, Search, Basemap) {
 
       // Set API key for Esri services
       esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurJZtzqH91EhYiqCQ_qj-RWtTWZu_K1_XG7Y-z2TWFIIqQ7hATq0JWYits_VzY8nXIdJLoKE89CjTXvkfPxofSyJuXDkO5XFzFIt0uFScR38F4dypMSvsBHStj7fzAZXlXe4aAY1ia8YQK1xSIHCL47T_HPOGdXhaSJxUKgc7nMfPPGpWOIhrcOo0ZRLV9Q72jhPu_TS_ZVHW9J0TAwQGB6K4IRq-TLYckdnFzWW954RkAT1_FTQ2F8LN"; 
       
       // Create a new map with a specific basemap
       const map = new Map({
-        basemap: "osm-standard" // Basemap layer service
+        basemap: "topo" // Basemap layer service, choose one basemap
       });
 
       // Set up the MapView
       const view = new MapView({
+        container:"viewDiv", // Div element to hold the map
         map: map,
         center: [-112, 38], // Longitude, latitude
         zoom: 10, // Zoom level
-        container: "viewDiv" // Div element to hold the map
       });
 
       // BasemapGallery Widget setup
       const basemapGallery = new BasemapGallery({
-        view: view
+        view: view,
+        source: [
+          Basemap.fromId("streets"),
+          Basemap.fromId("satelite"),
+          Basemap.fromId("hybrid"),
+          Basemap.fromId("topo"),
+          Basemap.fromId("gray"),
+          Basemap.fromId("dark-grey"),
+          Basemap.fromId("oceans"),
+          Basemap.fromId("national-geographic"),
+          Basemap.fromId("terrain"),
+          Basemap.fromId("osm")
+        ]
       });
 
       // Add the BasemapGallery widget to the UI
-      view.ui.add(basemapGallery, {
-        position: "top-right"
-      });
+      view.ui.add(basemapGallery, "top-right");
 
       // Locate Button Widget setup
       const locateBtn = new Locate({
@@ -51,12 +62,15 @@
       });
 
       // Add the Locate widget to the UI (top-left corner)
-      view.ui.add(locateBtn, {
-        position: "top-left"
+      view.ui.add(locateBtn, "top-left");
+
+      //Add search bar
+      const search = new Search ({
+        view:view
       });
 
       // Search Widget setup
-      const searchWidget = new Search({
+      /*const searchWidget = new Search({
         view: view
       });
 
@@ -64,7 +78,7 @@
       view.ui.add(searchWidget, {
         position: "top-left",
         index: 2
-      });
+      });*/
 
     });
   </script>
