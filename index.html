@@ -25,7 +25,7 @@
       
       // Create a new map with a specific basemap
       const map = new Map({
-        basemap: "topo" // Basemap layer service, choose one basemap
+        basemap: "topo-vector" // Basemap layer service, choose one basemap
       });
 
       // Set up the MapView
@@ -40,14 +40,13 @@
       const basemapGallery = new BasemapGallery({
         view: view,
         source: [
-          Basemap.fromId("streets"),
-          Basemap.fromId("satelite"),
+          Basemap.fromId("streets-vector"),
+          Basemap.fromId("satellite"),
           Basemap.fromId("hybrid"),
-          Basemap.fromId("topo"),
-          Basemap.fromId("gray"),
-          Basemap.fromId("dark-grey"),
+          Basemap.fromId("topo-vector"),
+          Basemap.fromId("gray-vector"),
+          Basemap.fromId("dark-gray-vector"),
           Basemap.fromId("oceans"),
-          Basemap.fromId("national-geographic"),
           Basemap.fromId("terrain"),
           Basemap.fromId("osm")
         ]
