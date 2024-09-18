@@ -1,2 +1,2 @@
-# xgmap
-First map for GEOG 576
+# agol
+My Esri JS Map accessing AGOL
