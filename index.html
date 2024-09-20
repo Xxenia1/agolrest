@@ -21,15 +21,18 @@
 
       //adding in the modules for the graphic and graphic layer
       "esri/Graphic",  
-      "esri/layers/GraphicsLayer" 
-    ], function(esriConfig, Map, MapView, BasemapGallery, Locate, Search, Basemap, Graphic, GraphicsLayer) {
+      "esri/layers/GraphicsLayer",
+      
+      //adding in the module for the feature layer
+      "esri/layers/FeatureLayer"
+    ], function(esriConfig, Map, MapView, BasemapGallery, Locate, Search, Basemap, Graphic, GraphicsLayer, FeatureLayer) {
 
       // Set API key for Esri services
       esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurJZtzqH91EhYiqCQ_qj-RWtTWZu_K1_XG7Y-z2TWFIIqQ7hATq0JWYits_VzY8nXIdJLoKE89CjTXvkfPxofSyJuXDkO5XFzFIt0uFScR38F4dypMSvsBHStj7fzAZXlXe4aAY1ia8YQK1xSIHCL47T_HPOGdXhaSJxUKgc7nMfPPGpWOIhrcOo0ZRLV9Q72jhPu_TS_ZVHW9J0TAwQGB6K4IRq-TLYckdnFzWW954RkAT1_FTQ2F8LN"; 
       
       // Create a new map with a specific basemap
       const map = new Map({
-        basemap: "topo-vector" // Basemap layer service, choose one basemap
+        basemap: "arcgis-topographic" // Basemap layer service, choose one basemap
       });
 
       // Set up the MapView
