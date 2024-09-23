@@ -41,7 +41,7 @@
         container:"viewDiv", // Div element to hold the map
         map: map,
         center: [-89.4008, 43.0722], // Longitude, latitude of Madison
-        zoom: 12, // Zoom level
+        zoom: 14, // Zoom level
       });
 
       //Add the constructor for the graphicslayer
@@ -151,13 +151,25 @@
       // Define a pop-up for usaeduLayer
       const popupEduusa = {
         "title": "Educational Institution",
-        "content": "<b>Institution (entity) name:</b> {INSTNM}<br><b>Institution's internet website address:</b> {WEBADDR}<br>"
+        "content": "<b>Name:</b>{INSTNM}<br> " +
+          "<b>For more information, visit: <a href='{WEBADDR}'>{WEBADDR}</a></b>"
       };
+
+      const usaeduRenderer = {
+        "type": "simple",
+        "symbol": {
+          "type": "picture-marker",
+          "url": "education.png",
+          "width": "18px",
+          "height": "18px"
+        }
+      }
 
       //adding the Const for the feature layer
       const usaeduLayer = new FeatureLayer({
       url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer",
 
+      renderer: usaeduRenderer, //calling the icson
       //adding the popup here
       outFields: ["INSTNM","WEBADDR"],
       popupTemplate: popupEduusa
@@ -171,7 +183,7 @@
         "type": "simple",
         "symbol": {
           "type": "picture-marker",
-          "url": "helicopter.png",
+          "url": "helicopter_1.png",
           "width": "18px",
           "height": "18px"
         }
