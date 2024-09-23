@@ -27,9 +27,10 @@
       "esri/layers/FeatureLayer",
 
       //adding in the module for the editor
-      "esri/widgets/Editor"
+      "esri/widgets/Editor",
+      "esri/widgets/Legend"
 
-    ], function(esriConfig, Map, MapView, BasemapGallery, Locate, Search, Basemap, Graphic, GraphicsLayer, FeatureLayer, Editor) {
+    ], function(esriConfig, Map, MapView, BasemapGallery, Locate, Search, Basemap, Graphic, GraphicsLayer, FeatureLayer, Editor, Legend) {
 
       // Set API key for Esri services
       esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurJZtzqH91EhYiqCQ_qj-RWtTWZu_K1_XG7Y-z2TWFIIqkT9RTqF2UHoN8GkjrqNbLLbTFu21rZqcKXEvDrMX4vGE5n8icL98UnU9THAZc9ropyhzNtrF6_I46NbBonEVraWp2erto6p-tht7Fckdjam73fw1b_4H53LLHssW2l_3hiAAIwkYi7zMrieH9ziTELIZBh-gTutzYUuRzTXPK_IGyo8A8a0g8rWOatmbjeNOAT1_o9Stcl9b"; 
@@ -245,6 +246,12 @@
       // Add the widget to the view
       view.ui.add(editor, "top-right");
 
+      //Add the legend to the view
+      let legend = new Legend({
+        view: view
+      });
+      view.ui.add(legend, "bottom-right");
+
 
       // BasemapGallery Widget setup
       const basemapGallery = new BasemapGallery({
@@ -263,7 +270,7 @@
       });
 
       // Add the BasemapGallery widget to the UI
-      view.ui.add(basemapGallery, "top-right");
+      view.ui.add(basemapGallery, "bottom-left");
 
       // Locate Button Widget setup
       const locateBtn = new Locate({
