@@ -40,8 +40,8 @@
       const view = new MapView({
         container:"viewDiv", // Div element to hold the map
         map: map,
-        center: [-89.4081, 43.0753], // Longitude, latitude
-        zoom: 15, // Zoom level
+        center: [-89.4008, 43.0722], // Longitude, latitude of Madison
+        zoom: 13, // Zoom level
       });
 
       //Add the constructor for the graphicslayer
@@ -58,7 +58,7 @@
         type: "simple-marker", 
         style: "square", 
         color: [0, 0, 250],  // Color of blues rock
-        size: "26px",
+        size: "20px",
         outline: {  
           color: [0, 0, 0], // Black 
           width: 1
@@ -150,9 +150,9 @@
 
       // Define a pop-up for usaeduLayer
       const popupEduusa = {
-        "title": "EDUs",
+        "title": "Educational Institution",
         "content": "<b>Institution (entity) name:</b> {INSTNM}<br><b>Institution's internet website address:</b> {WEBADDR}<br>"
-      }
+      };
 
       //adding the Const for the feature layer
       const usaeduLayer = new FeatureLayer({
@@ -165,6 +165,13 @@
 
       //adding the feature layer to the map
       map.add(usaeduLayer);
+
+      const airportLayer = new FeatureLayer ({
+        url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/USA_Airports/FeatureServer",
+      });
+
+      //Add airport layer to the map
+      map.add(airportLayer);
 
       // BasemapGallery Widget setup
       const basemapGallery = new BasemapGallery({
