@@ -223,12 +223,48 @@
       //Add Helicopter airport layer to the map
       map.add(airportLayer);
 
+      const myRenderer = {
+        "type": "simple",
+        "symbol": {
+          "type": "picture-marker",
+          "url": "airplane-ticket.png",
+          "width": "18px",
+          "height": "18px"
+        }
+      };
+
+      const popupMy = {
+        "title": "My Airport: {AirportCode}"
+      };
+
+      const myLabels = {
+        symbol: {
+          type: "text",
+          color: "#FFFFFF",
+          haloColor: "#5E8D74",
+          haloSize: "2px",
+          font: {
+            size: "12px",
+            family: "Noto Sans",
+            style: "italic",
+            weight: "normal"
+          }
+        },
+        labelPlacement: "above-center",
+        labelExpressionInfo: {
+          expression: "$feature.AirportCode"
+        }
+      };
+
       //Add the const for the feature layer
       const myAirports = new FeatureLayer({
         url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/My_Airport/FeatureServer",
 
+        renderer: myRenderer,
+        labelingInfo: [myLabels],
         //add popup
         outFeild: ["AirportCode"],
+        popupTemplate: popupMy
       });
       map.add(myAirports);
 
@@ -248,7 +284,21 @@
 
       //Add the legend to the view
       let legend = new Legend({
-        view: view
+        view: view,
+        layerInfo: [
+          {
+            layer: myAirports,
+            title: "My Airport"
+          },
+          {
+            layer: airportLayer,
+            title: "Heliports"
+          },
+          {
+            layer: usaeduLayer,
+            title: "Educational Institution"
+          },
+        ]
       });
       view.ui.add(legend, "bottom-right");
 
