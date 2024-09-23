@@ -25,6 +25,7 @@
       
       //adding in the module for the feature layer
       "esri/layers/FeatureLayer"
+
     ], function(esriConfig, Map, MapView, BasemapGallery, Locate, Search, Basemap, Graphic, GraphicsLayer, FeatureLayer) {
 
       // Set API key for Esri services
@@ -39,8 +40,8 @@
       const view = new MapView({
         container:"viewDiv", // Div element to hold the map
         map: map,
-        center: [-97.750689, 30.263098], // Longitude, latitude
-        zoom: 10, // Zoom level
+        center: [-89.4081, 43.0753], // Longitude, latitude
+        zoom: 15, // Zoom level
       });
 
       //Add the constructor for the graphicslayer
@@ -49,8 +50,8 @@
 
       const point = { //Create a point  
         type: "point",  
-        longitude: -97.750689,    //long lat of Stevie Ray Vaughan Statue
-        latitude: 30.263098
+        longitude: -89.4081,    //long lat of UWM
+        latitude: 43.0753
       };
 
       const simpleMarkerSymbol = {  
@@ -69,9 +70,9 @@
         title: "{Name}",
         content: "{Description}"
       }
-      const attributes = {
-        Name: "Stevie Ray Vaughan Statue",
-        Description: "A bronze sculpture of Stevie Ray Vaughan by Ralph Helmick"
+      const attributesPoint = {
+        Name: "University of Wisconsin-Madison (UWM)",
+        Description: "Website: <a href='https://www.wisc.edu/' target='_blank'>https://www.wisc.edu/</a>"
       };
 
       //Create point
@@ -80,7 +81,7 @@
         symbol: simpleMarkerSymbol,
         
         //Add popup properties
-        attributes: attributes,
+        attributes: attributesPoint,
         popupTemplate: popupTemplate
       });
       graphicsLayer.add(pointGraphic);
@@ -90,7 +91,10 @@
         type: "polyline",
         hasZ: false,
         hasM: true,
-        paths: [-97.750689, 30.263098],
+        paths: [
+          [-89.397384, 43.074885],
+          [-89.386181, 43.074736]
+        ],
         spatialReference: {wkid: 4326}
       }
       const polylineSymbol = {
@@ -98,20 +102,69 @@
         width: 2,
         color: "black"
       };
-      //const attributeLine1
 
-      //const polylineGraphic = new Graphic({})
+      const attributesLine = {
+        Name: "State Street",
+        Description: "The path from UWM to State Capitol"
+      };
 
-      //add polygon
-      //const polygon
+      const polylineGraphic = new Graphic({
+        geometry: polyline,
+        symbol: polylineSymbol,
+        attributes: attributesLine,
+        popupTemplate: popupTemplate
+      });
+      graphicsLayer.add(polylineGraphic);
 
-      //const polygonSymbol
+      //Add polygon
+      const polygon = {
+        type: "polygon",
+        hasZ: true,
+        hasM: true,
+        spatialReference: {wkid: 4326},
+        rings: [
+          [-89.385030, 43.075343],
+          [-89.383308, 43.075337],
+          [-89.383315, 43.074069],
+          [-89.385040, 43.074070],
+        ]
+      }
 
-      //const attributePolygon
+      const polygonSymbol = {
+        type: "simple-fill",
+        color: "gray",
+      };
 
-      //const polygonGraphic = new Graphic
+      const attributesPolygon = {
+        Name: "Wisconsin State Capitol",
+        Description: "The Wisconsin State Capitol, located in Madison, is an iconic domed building that houses the Wisconsin Legislature, the Supreme Court, and the Office of the Governor."
+      }
 
+      const polygonGraphic = new Graphic ({
+        geometry: polygon,
+        symbol: polygonSymbol,
+        attributes: attributesPolygon,
+        popupTemplate: popupTemplate,
+      });
+      graphicsLayer.add(polygonGraphic);
 
+      // Define a pop-up for usaeduLayer
+      const popupEduusa = {
+        "title": "EDUs",
+        "content": "<b>Institution (entity) name:</b> {INSTNM}<br><b>Institution's internet website address:</b> {WEBADDR}<br>"
+      }
+
+      //adding the Const for the feature layer
+      const usaeduLayer = new FeatureLayer({
+      url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer",
+
+      //adding the popup here
+      outFields: ["INSTNM","WEBADDR"],
+      popupTemplate: popupEduusa
+      });
+
+      //adding the feature layer to the map
+      map.add(usaeduLayer);
 
       // BasemapGallery Widget setup
       const basemapGallery = new BasemapGallery({
